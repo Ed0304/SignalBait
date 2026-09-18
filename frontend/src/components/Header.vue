@@ -31,10 +31,10 @@ import { RouterLink } from 'vue-router';
         </RouterLink>
 
         <RouterLink
-          to="/credits"
+          to="/analyze"
           class="text-sm font-medium text-slate-400 transition-colors hover:text-white"
         >
-          Credits
+          Analyze
         </RouterLink>
       </div>
 

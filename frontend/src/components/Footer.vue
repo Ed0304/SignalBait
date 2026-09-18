@@ -27,24 +27,17 @@
 
             <div class="mt-3 flex flex-col gap-2 text-sm">
               <RouterLink
-                to="/"
+                to="/analyze"
                 class="text-slate-400 transition-colors hover:text-white"
               >
                 Analyze
               </RouterLink>
 
               <RouterLink
-                to="/about"
+                to="/FAQ"
                 class="text-slate-400 transition-colors hover:text-white"
               >
-                About
-              </RouterLink>
-
-              <RouterLink
-                to="/credits"
-                class="text-slate-400 transition-colors hover:text-white"
-              >
-                Credits
+                FAQ
               </RouterLink>
             </div>
           </div>

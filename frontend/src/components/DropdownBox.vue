@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import type { QNA } from '../data/faq'
 
 defineProps<{
-  qna: QNA
+  qna: QNA //var_name: interface
 }>()
 
 const extended = ref(false)

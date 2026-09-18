@@ -2,6 +2,7 @@
 import DropdownBox from '@/components/DropdownBox.vue';
 import { FAQ } from '@/data/faq';
 import type { QNA } from '@/data/faq';
+import BackButton from '@/components/BackButton.vue';
 </script>
 
 
@@ -19,5 +20,9 @@ import type { QNA } from '@/data/faq';
         :qna="item"
       />
     </div>
+    <div class="mt-8 flex flex-col gap-4">
+      <BackButton/>
+    </div>
+    
   </main>
 </template>
