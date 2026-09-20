@@ -1,13 +1,22 @@
 package signalbait.service;
 
 import org.springframework.stereotype.Service;
+import signalbait.dto.ScanResponse;
 
-//Tells Spring this class handles application/business logic
+// Tells Spring to manage this class as a service component.
+// Business/application logic will live here.
 @Service 
 public class ScanService {
 
-    public String scan(String content){
-        return content;
+    public ScanResponse scan(String content){
+        content = "";
+        return new ScanResponse(
+            "HIGH",
+            87,
+            "Potential phishing attempt detected."
+        );
     }
+    
+    
     
 }

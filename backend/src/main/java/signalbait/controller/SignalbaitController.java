@@ -1,7 +1,10 @@
 package signalbait.controller;
 
 import org.springframework.web.bind.annotation.*;
+
+import jakarta.validation.Valid;
 import signalbait.dto.ScanRequest;
+import signalbait.dto.ScanResponse;
 import signalbait.service.ScanService;
 // Tells Spring that this class handles HTTP requests.
 // Return values from methods are written directly to the HTTP response body.
@@ -22,7 +25,8 @@ public class SignalbaitController {
     // Handles POST HTTP requests.
     // @RequestBody converts the incoming JSON body into a ScanRequest object.
     @PostMapping
-    public String scan(@RequestBody ScanRequest request) {
+    // @Valid validates the object the function receives
+    public ScanResponse scan(@Valid @RequestBody ScanRequest request) {
 
         // Controller handles HTTP.
         // Service handles the actual application logic.
