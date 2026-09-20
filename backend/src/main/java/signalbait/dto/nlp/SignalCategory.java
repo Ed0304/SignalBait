@@ -1,0 +1,10 @@
+package signalbait.dto.nlp;
+
+
+public enum SignalCategory {
+    URGENT,
+    THREATENING,
+    CREDENTIAL_REQUEST,
+    FINANCIAL_REQUEST,
+    PRESSURE_TO_ACT
+}

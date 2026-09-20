@@ -94,6 +94,14 @@ const inputMode = ref<'text' | 'image'>('text')
         </button>
         <BackButton/>
       </form>
+      <div class="mt-8">
+        <h1 class="text-4xl font-bold text-white">
+          ⚠️ Disclaimer
+        </h1>
+        <br/>
+        <p>SignalBait's analysis results may contain mistakes and should not be treated as definitive. If you're unsure whether a message or link is legitimate, contact your bank, service provider, or relevant local authorities through their official channels to verify it.</p>
+
+      </div>
       
     </div>
   </main>
