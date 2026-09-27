@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import BackButton from '@/components/BackButton.vue';
+import ReportBugModal from '@/components/ReportBugModal.vue';
 import { ref } from 'vue'
 
 const inputMode = ref<'text' | 'image'>('text')
+const showReportModal = ref(false)
+
 </script>
 
 <template>
@@ -20,6 +23,15 @@ const inputMode = ref<'text' | 'image'>('text')
         FAQ
       </RouterLink>
     </h2>
+
+    <div class="mt-8">
+        <h1 class="text-4xl font-bold text-white">
+          ⚠️ Disclaimer
+        </h1>
+        <br/>
+        <p>SignalBait's analysis results may contain mistakes and should not be treated as definitive. If you're unsure whether a message or link is legitimate, contact your bank, service provider, or relevant local authorities through their official channels to verify it.</p>
+
+      </div>
 
     <div class="mt-8">
       <form class="flex flex-col gap-6">
@@ -52,6 +64,23 @@ const inputMode = ref<'text' | 'image'>('text')
             Image
           </button>
         </div>
+      <div class="mt-8">
+        <button
+            type="button"
+            @click="showReportModal = true"
+            class="rounded-lg bg-red-600 px-5 py-2.5 font-semibold text-white
+                  shadow-md transition hover:bg-red-500
+                  focus:outline-none focus:ring-2 focus:ring-red-500
+                  focus:ring-offset-2 focus:ring-offset-slate-950"
+        >
+            Report Bug
+        </button>
+      </div>
+
+        <ReportBugModal
+            v-if="showReportModal"
+            @close="showReportModal = false"
+        />
         <div class="h-48">
         <!-- Text input -->
         <textarea
@@ -94,14 +123,7 @@ const inputMode = ref<'text' | 'image'>('text')
         </button>
         <BackButton/>
       </form>
-      <div class="mt-8">
-        <h1 class="text-4xl font-bold text-white">
-          ⚠️ Disclaimer
-        </h1>
-        <br/>
-        <p>SignalBait's analysis results may contain mistakes and should not be treated as definitive. If you're unsure whether a message or link is legitimate, contact your bank, service provider, or relevant local authorities through their official channels to verify it.</p>
-
-      </div>
+      
       
     </div>
   </main>
