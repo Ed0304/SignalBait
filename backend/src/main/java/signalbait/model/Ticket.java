@@ -8,31 +8,31 @@ public class Ticket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ticketNumber;
+    private Long ticket_id;
 
     @Column(nullable = false)
-    private String issueType;
+    private String issue_type;
 
     @Column(nullable = false)
-    private LocalDateTime createdAt;
+    private LocalDateTime created_at;
 
     public Ticket() {
     }
 
-    public Ticket(String issueType) {
-        this.issueType = issueType;
-        this.createdAt = LocalDateTime.now();
+    public Ticket(String issue_type) {
+        this.issue_type = issue_type;
+        this.created_at = LocalDateTime.now();
     }
 
     public Long getTicketNumber() {
-        return ticketNumber;
+        return ticket_id;
     }
 
     public String getIssueType() {
-        return issueType;
+        return issue_type;
     }
 
     public LocalDateTime getCreatedAt() {
-        return createdAt;
+        return created_at;
     }
 }
