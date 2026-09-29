@@ -9,18 +9,56 @@
 // The ticket is sent to PostgreSQL without any information about the screenshot.
 
 import { ref } from 'vue'
-
+const API_BASE_URL = import.meta.env.VITE_BASE_API_URL;
+const GOOGLE_FORM_URL = import.meta.env.VITE_GOOGLE_FORMS_URL;
+const GOOGLE_FORM_TICKET_FIELD = import.meta.env.VITE_GOOGLE_FORMS_TICKET_FIELD;
+const formURL = new URL(GOOGLE_FORM_URL);
 const submitted = ref(false)
 const closed = ref(false)
+const issue_type = ref('FALSE_POSITIVE') //Default value assigned
 const emit = defineEmits<{
     close: []
 }>()
-function submitReport() {
+
+const ticketNumber = ref<number | null>(null)
+async function submitReport() {
     // Later:
     // Send the selected issue type to the Spring Boot backend.
     // The backend will create the ticket in PostgreSQL.
 
-    submitted.value = true
+    try{
+        const response = await fetch(
+            `${API_BASE_URL}/api/tickets`,
+            {
+                method: 'POST',
+                headers:{
+                    "Content-type": "application/json" 
+                },
+                body: JSON.stringify({issueType: issue_type.value})
+
+            }
+        )
+        if (!response.ok) {
+            throw new Error('Failed to create ticket')
+        }
+
+        
+
+        const ticket = await response.json()
+        ticketNumber.value = ticket.ticketNumber
+        console.log('Ticket created:', ticket)
+
+        formURL.searchParams.set(
+            GOOGLE_FORM_TICKET_FIELD,
+            ticket.ticketNumber.toString()
+        )
+
+        submitted.value = true
+    }
+    
+    catch(error){
+         console.error('Failed to submit report:', error)
+    }
 }
 </script>
 
@@ -77,6 +115,7 @@ function submitReport() {
                                outline-none transition
                                focus:border-red-500 focus:ring-2
                                focus:ring-red-500/30"
+                        v-model="issue_type"
                     >
                         <option value="FALSE_POSITIVE">
                             Message falsely identified as potentially suspicious.
@@ -124,10 +163,11 @@ function submitReport() {
                         Thanks for submitting!
                     </h1>
 
-                    <h2 class="mt-3 text-base leading-relaxed text-slate-300">
-                        Your ticket has been created, but we need additional
-                        information to investigate your report.
-                    </h2>
+                    <p class="mt-3 text-slate-300">
+                        Your ticket
+                        <strong>#{{ ticketNumber }}</strong>
+                        has been created.
+                    </p>
                 </div>
 
                 <div
@@ -140,7 +180,7 @@ function submitReport() {
                     </p>
 
                     <a
-                        href="https://docs.google.com/forms/d/e/1FAIpQLSf2OnNz02z6C-I4sI76WehZATS7rZyZMW91UH8u9zHeIKBHOw/viewform?usp=dialog"
+                        :href="formURL.toString()"
                         target="_blank"
                         rel="noopener noreferrer"
                         class="mt-4 inline-block rounded-lg bg-blue-600
