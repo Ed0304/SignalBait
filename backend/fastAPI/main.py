@@ -196,7 +196,7 @@ async def ocr_image(file: UploadFile = File(...)):
             detail="Unsupported image format."
         )
 
-    temp_path = f"temp_ocr_image{extension}"
+    temp_path = f"/tmp/temp_ocr_image{extension}"
 
     try:
         # Temporarily save the image for PaddleOCR.
