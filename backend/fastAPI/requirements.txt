@@ -1,6 +1,7 @@
 fastapi
 uvicorn[standard]
 transformers
-torch
+torch==2.9.1
 paddleocr
 paddlepaddle
+opencv-python-headless
