@@ -121,7 +121,7 @@ def get_category_indicators(result, category_labels):
 @app.post("/analyze", response_model=AnalyzeResponse)
 def analyze_message(request: AnalyzeRequest):
     result = get_classifier()(
-        content,
+        request.content,
         candidate_labels,
         multi_label=True,
         hypothesis_template="This message contains {}."
