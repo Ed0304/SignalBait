@@ -1,4 +1,6 @@
 fastapi
 uvicorn
 transformers
-torch==2.9.1
+torch
+paddleocr
+paddlepaddle
