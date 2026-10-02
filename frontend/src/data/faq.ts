@@ -15,7 +15,7 @@ export const FAQ : QNA[] = [
     },
     {
         question: "What languages does SignalBait support?",
-        answer: "SignalBait's website currently supports English only. However, its AI analysis is designed to handle suspicious messages in multiple languages."
+        answer: "SignalBait's website currently supports English only. The message scanner can analyze messages in other languages, but results may be less reliable. For the best results, translate your message to English before scanning."
     },
     {
         question: "Can SignalBait guarantee that a message is safe?",

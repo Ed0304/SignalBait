@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <footer class="border-t border-white/10 bg-slate-950">
+  <footer class="border-t border-white/10 bg-[#050505]">
     <div class="mx-auto max-w-6xl px-6 py-10">
 
       <div class="flex flex-col gap-8 md:flex-row md:justify-between">
@@ -10,10 +10,10 @@
         <!-- Brand -->
         <div>
           <h2 class="text-xl font-bold text-white">
-            SignalBait
+            Signal<span class="text-[#00ff66]">Bait</span>
           </h2>
 
-          <p class="mt-2 max-w-xs text-sm text-slate-400">
+          <p class="mt-2 max-w-xs text-sm text-gray-400">
             Catch the red flags before proceeding.
           </p>
         </div>
@@ -28,14 +28,14 @@
             <div class="mt-3 flex flex-col gap-2 text-sm">
               <RouterLink
                 to="/analyze"
-                class="text-slate-400 transition-colors hover:text-white"
+                class="text-gray-400 transition-colors hover:text-[#00ff66]"
               >
                 Analyze
               </RouterLink>
 
               <RouterLink
                 to="/FAQ"
-                class="text-slate-400 transition-colors hover:text-white"
+                class="text-gray-400 transition-colors hover:text-[#00ff66]"
               >
                 FAQ
               </RouterLink>
@@ -47,7 +47,7 @@
 
       <!-- Bottom -->
       <div class="mt-10 border-t border-white/10 pt-6">
-        <p class="text-sm text-slate-500">
+        <p class="text-sm text-gray-500">
           © 2026 SignalBait. Built as a software engineering project.
         </p>
       </div>
