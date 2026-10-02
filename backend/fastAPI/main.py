@@ -26,7 +26,21 @@ app.add_middleware(
 )
 
 MODEL_NAME = "facebook/bart-large-mnli"
-classifier = pipeline("zero-shot-classification", model=MODEL_NAME)
+
+classifier = None
+
+
+def get_classifier():
+    """Load the BART classifier only when it is first needed."""
+    global classifier
+
+    if classifier is None:
+        classifier = pipeline(
+            "zero-shot-classification",
+            model=MODEL_NAME
+        )
+
+    return classifier
 
 neutral_signals = [
     "urgency or time pressure",
@@ -106,8 +120,8 @@ def get_category_indicators(result, category_labels):
 
 @app.post("/analyze", response_model=AnalyzeResponse)
 def analyze_message(request: AnalyzeRequest):
-    result = classifier(
-        request.content,
+    result = get_classifier()(
+        content,
         candidate_labels,
         multi_label=True,
         hypothesis_template="This message contains {}."
