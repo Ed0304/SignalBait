@@ -12,6 +12,7 @@ dependencies = [
     "paddlepaddle==3.3.1",
     "paddlex==3.7.2",
     "opencv-contrib-python-headless==4.10.0.84",
+    "python-multipart",
 ]
 
 [tool.uv.sources]
