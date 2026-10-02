@@ -155,13 +155,22 @@ def health_check():
 # If the user selects image input in the application,
 # this block recognizes text in the image, then the extracted
 # text is delivered to the main NLP pipeline.
-ocr = PaddleOCR(
-    use_doc_orientation_classify=False,
-    use_doc_unwarping=False,
-    use_textline_orientation=False,
-    # Disable oneDNN/MKLDNN to avoid the PIR → oneDNN issue.
-    enable_mkldnn=False,
-)
+ocr = None
+
+
+def get_ocr():
+    """Load PaddleOCR only when an image needs to be processed."""
+    global ocr
+
+    if ocr is None:
+        ocr = PaddleOCR(
+            use_doc_orientation_classify=False,
+            use_doc_unwarping=False,
+            use_textline_orientation=False,
+            enable_mkldnn=False,
+        )
+
+    return ocr
 
 
 @app.post("/ocr")
@@ -194,7 +203,7 @@ async def ocr_image(file: UploadFile = File(...)):
         with open(temp_path, "wb") as temp_file:
             temp_file.write(image_bytes)
 
-        results = ocr.predict(temp_path)
+        results = get_ocr().predict(temp_path)
         extracted_lines = []
 
         for result in results:
