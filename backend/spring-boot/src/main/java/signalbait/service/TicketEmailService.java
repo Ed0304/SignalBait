@@ -28,12 +28,11 @@ public class TicketEmailService {
     private final String trackingUrl;
 
     public TicketEmailService(
-            RestClient.Builder restClientBuilder,
             @Value("${brevo.api-key}") String apiKey,
             @Value("${signalbait.mail.from}") String fromAddress,
             @Value("${signalbait.tracking-url}") String trackingUrl) {
 
-        this.restClient = restClientBuilder.build();
+        this.restClient = RestClient.create();
         this.apiKey = apiKey;
         this.fromAddress = fromAddress;
         this.trackingUrl = trackingUrl;
