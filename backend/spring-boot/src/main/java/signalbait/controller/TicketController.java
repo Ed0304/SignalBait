@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import signalbait.dto.TicketRequest;
 import signalbait.dto.TicketResponse;
 import signalbait.dto.TicketTrackRequest;
-import signalbait.dto.TicketTrackingResponse;
 import signalbait.dto.StatusChangeNotificationRequest;
 import signalbait.service.TicketService;
 
