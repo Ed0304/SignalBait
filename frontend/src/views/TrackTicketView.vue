@@ -43,29 +43,140 @@ function formatDate(value: string) {
 }
 </script>
 
+
 <template>
-  <section class="mx-auto w-full max-w-xl rounded-2xl border border-white/10 bg-[#0D0D0D] p-8 text-white">
-    <h1 class="text-2xl font-bold">Track a Ticket</h1>
-    <p class="mt-2 text-sm text-gray-400">Enter the ticket number and the email address used when reporting the issue.</p>
+  <main class="mx-auto w-full max-w-5xl px-6 py-16 text-white">
+    <!-- Page heading -->
+    <section class="mb-10">
+      <p
+        class="text-sm font-bold uppercase tracking-[0.3em] text-[#00ff66]"
+      >
+        Report Tracking
+      </p>
 
-    <form class="mt-6 space-y-5" @submit.prevent="trackTicket">
-      <div>
-        <label for="ticket-number" class="mb-2 block text-sm font-medium text-gray-300">Ticket number</label>
-        <input id="ticket-number" v-model.trim="ticketNumber" type="number" min="1" step="1" required class="w-full rounded-lg border border-white/10 bg-[#151515] px-4 py-3 text-white outline-none focus:border-[#00ff66]" />
-      </div>
-      <div>
-        <label for="track-email" class="mb-2 block text-sm font-medium text-gray-300">Email address</label>
-        <input id="track-email" v-model.trim="reporterEmail" type="email" maxlength="254" autocomplete="email" required class="w-full rounded-lg border border-white/10 bg-[#151515] px-4 py-3 text-white outline-none focus:border-[#00ff66]" />
-      </div>
-      <p v-if="errorMessage" role="alert" class="text-sm text-red-400">{{ errorMessage }}</p>
-      <button type="submit" :disabled="loading" class="rounded-lg bg-[#00ff66] px-5 py-2.5 font-semibold text-black disabled:opacity-60">{{ loading ? 'Checking…' : 'Check Status' }}</button>
-    </form>
+      <h1 class="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
+        Track your ticket
+      </h1>
 
-    <div v-if="ticket" class="mt-6 rounded-lg border border-white/10 bg-[#151515] p-5" aria-live="polite">
-      <p class="text-sm text-gray-400">Ticket #{{ ticket.ticketNumber }}</p>
-      <p class="mt-2 text-lg font-semibold">Status: <span class="text-[#00ff66]">{{ ticket.ticketStatus.replaceAll('_', ' ') }}</span></p>
-      <p class="mt-2 text-sm text-gray-300">Issue: {{ ticket.issueType.replaceAll('_', ' ') }}</p>
-      <p class="mt-1 text-sm text-gray-400">Created: {{ formatDate(ticket.createdAt) }}</p>
-    </div>
-  </section>
+      <p class="mt-5 max-w-2xl text-base leading-relaxed text-gray-400">
+        Check the latest status of your SignalBait report using your
+        ticket number and the email address you provided when reporting.
+      </p>
+    </section>
+
+    <!-- Tracking form -->
+    <section
+      class="rounded-2xl border border-white/10 bg-[#0D0D0D] p-6 sm:p-8"
+    >
+      <h2 class="text-xl font-semibold">Look up your report</h2>
+
+      <p class="mt-2 text-sm text-gray-400">
+        Enter your ticket details below to view the current status.
+      </p>
+
+      <form
+        class="mt-8 space-y-6"
+        @submit.prevent="trackTicket"
+      >
+        <div>
+          <label
+            for="ticket-number"
+            class="mb-2 block text-sm font-medium text-gray-300"
+          >
+            Ticket number
+          </label>
+
+          <input
+            id="ticket-number"
+            v-model.trim="ticketNumber"
+            type="number"
+            min="1"
+            step="1"
+            required
+            placeholder="e.g. 12345"
+            class="w-full rounded-lg border border-white/10 bg-[#080808] px-4 py-3 text-white outline-none transition focus:border-[#00ff66] focus:ring-1 focus:ring-[#00ff66]"
+          />
+        </div>
+
+        <div>
+          <label
+            for="track-email"
+            class="mb-2 block text-sm font-medium text-gray-300"
+          >
+            Reporter email
+          </label>
+
+          <input
+            id="track-email"
+            v-model.trim="reporterEmail"
+            type="email"
+            maxlength="254"
+            autocomplete="email"
+            required
+            placeholder="The email used when reporting"
+            class="w-full rounded-lg border border-white/10 bg-[#080808] px-4 py-3 text-white outline-none transition focus:border-[#00ff66] focus:ring-1 focus:ring-[#00ff66]"
+          />
+        </div>
+
+        <p
+          v-if="errorMessage"
+          role="alert"
+          class="text-sm text-red-400"
+        >
+          {{ errorMessage }}
+        </p>
+
+        <button
+          type="submit"
+          :disabled="loading"
+          class="w-full rounded-lg bg-[#00ff66] px-5 py-3 font-semibold text-black transition hover:bg-[#69ff91] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+        >
+          {{ loading ? 'Checking…' : 'Check ticket status →' }}
+        </button>
+      </form>
+    </section>
+
+    <!-- Tracking result -->
+    <section
+      v-if="ticket"
+      class="mt-8 rounded-2xl border border-white/10 bg-[#0D0D0D] p-6 sm:p-8"
+      aria-live="polite"
+    >
+      <p class="text-sm font-bold uppercase tracking-widest text-[#00ff66]">
+        Report Details
+      </p>
+
+      <h2 class="mt-3 text-2xl font-bold">
+        Ticket #{{ ticket.ticketNumber }}
+      </h2>
+
+      <div class="mt-6 grid gap-5 sm:grid-cols-2">
+        <div>
+          <p class="text-sm text-gray-400">Current status</p>
+          <p class="mt-2 text-lg font-semibold text-[#00ff66]">
+            {{ ticket.ticketStatus.replaceAll('_', ' ') }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-sm text-gray-400">Issue type</p>
+          <p class="mt-2 font-medium">
+            {{ ticket.issueType.replaceAll('_', ' ') }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-sm text-gray-400">Submitted</p>
+          <p class="mt-2 text-sm text-gray-300">
+            {{ formatDate(ticket.createdAt) }}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <p class="mt-6 text-sm text-gray-500">
+      Your email is used to verify your ticket and is not displayed
+      in the tracking results.
+    </p>
+  </main>
 </template>
