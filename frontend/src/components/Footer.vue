@@ -39,6 +39,13 @@
               >
                 FAQ
               </RouterLink>
+
+              <RouterLink
+                to="/trackticket"
+                class="text-gray-400 transition-colors hover:text-[#00ff66]"
+              >
+                Track Ticket
+              </RouterLink>
             </div>
           </div>
         </nav>

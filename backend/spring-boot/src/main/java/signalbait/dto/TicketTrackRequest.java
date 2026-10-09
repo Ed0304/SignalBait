@@ -1,16 +1,16 @@
 package signalbait.dto;
 
-public class TicketRequest {
+public class TicketTrackRequest {
 
-    private String issueType;
+    private Long ticketNumber;
     private String reporterEmail;
 
-    public String getIssueType() {
-        return issueType;
+    public Long getTicketNumber() {
+        return ticketNumber;
     }
 
-    public void setIssueType(String issueType) {
-        this.issueType = issueType;
+    public void setTicketNumber(Long ticketNumber) {
+        this.ticketNumber = ticketNumber;
     }
 
     public String getReporterEmail() {

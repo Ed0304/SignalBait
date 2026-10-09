@@ -38,6 +38,13 @@ import { RouterLink } from 'vue-router'
           Analyze
         </RouterLink>
 
+        <RouterLink
+          to="/trackticket"
+          class="text-sm font-medium text-gray-400 transition-colors hover:text-[#00ff66]"
+        >
+          Track Ticket
+        </RouterLink>
+
       </div>
 
     </nav>
