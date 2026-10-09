@@ -5,6 +5,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class TicketEmailService {
@@ -12,6 +14,8 @@ public class TicketEmailService {
     private final JavaMailSender mailSender;
     private final String fromAddress;
     private final String trackingUrl;
+    private static final Logger log =
+        LoggerFactory.getLogger(TicketEmailService.class);
 
     public TicketEmailService(
             JavaMailSender mailSender,
@@ -38,7 +42,8 @@ public class TicketEmailService {
             mailSender.send(message);
             return true;
         } catch (MailException exception) {
-            // The ticket has already been saved. Do not make the user retry and create duplicates.
+            log.error("Failed to send ticket confirmation for ticket #{}",
+                    ticketNumber, exception);
             return false;
         }
     }
@@ -57,7 +62,8 @@ public class TicketEmailService {
             mailSender.send(message);
             return true;
         } catch (MailException exception) {
-            // Status changes should not be rolled back just because email delivery failed.
+            log.error("Failed to send status update for ticket #{}",
+            ticketNumber, exception);
             return false;
         }
     }
